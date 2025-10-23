@@ -1,7 +1,6 @@
 package racingcar;
 
 public class RacingCar {
-    private static final int MAX_NAME_LENGTH = 5;
     private static final int FORWARD_THRESHOLD = 4;
 
     private final String name;
