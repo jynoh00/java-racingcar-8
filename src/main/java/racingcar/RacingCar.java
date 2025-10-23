@@ -15,6 +15,11 @@ public class RacingCar {
         if (randomValue >= FORWARD_THRESHOLD) position++;
     }
 
-    public String getName() { return this.name; }
-    public int getPosition() { return this.position; }
+    public String getName() {
+        return this.name;
+    }
+
+    public int getPosition() {
+        return this.position;
+    }
 }

@@ -30,10 +30,10 @@ public class RacingController {
             loopGameRunner(roundCount);
 
             outputView.displayResult(racingGame.getWinner());
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             throw e;
-        }finally {
+        } finally {
             Console.close();
         }
     }
@@ -41,10 +41,10 @@ public class RacingController {
     private static List<String> parseCarNames(String input) {
         validateInputCarNameEmptyOrBlank(input);
 
-        if (input.contains(SEPARATOR)){
+        if (input.contains(SEPARATOR)) {
             List<String> carNames = Arrays.stream(input.split(SEPARATOR))
-                                    .map(String::trim)
-                                    .collect(Collectors.toList());
+                    .map(String::trim)
+                    .collect(Collectors.toList());
             validateSplitNamesCheck(carNames);
 
             return carNames;

@@ -42,7 +42,7 @@ public class RacingGame {
             int tmpPosition = racingCar.getPosition();
 
             if (tmpPosition == winnerPosition) winnerNames.add(racingCar.getName());
-            if (tmpPosition > winnerPosition){
+            if (tmpPosition > winnerPosition) {
                 winnerPosition = tmpPosition;
                 winnerNames.clear();
                 winnerNames.add(racingCar.getName());

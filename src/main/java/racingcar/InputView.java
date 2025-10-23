@@ -20,12 +20,12 @@ public class InputView {
         // 기본 입력 포맷 검증 로직 (숫자 포맷 일치 여부, 음이 아닌 정수)
         if (roundCount.isEmpty()) throw new IllegalArgumentException("시행 횟수 - 빈 값 입력 불가");
 
-        try{
+        try {
             int num = Integer.parseInt(roundCount);
             checkPositive(num);
 
             return num;
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("시행 횟수 - 올바른 숫자 형식 필요");
         }
     }
