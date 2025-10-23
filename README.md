@@ -30,7 +30,7 @@
 - 쉼표`,`는 자동차의 이름이 될 수 없다.
 - 자동차가 전진을 할 경우 `-`를 `1`개 추가한다. (이동 거리는 1씩 증가한다)
 - 우승자 선정 기준은 가장 전진 횟수가 많은 차량(차량들)으로 한다.
-- 우승자가 중복될 경우, 사용자가 입력을 먼저한 순서로 우승자가 출력된다.
+- 우승자가 여러 차량들일 경우, 사용자가 이름 입력을 먼저한 순서로 우승자가 출력된다.
 
 *시행 횟수: 몇 번의 이동을 할 것인지 사용자가 입력한 값
 
@@ -126,24 +126,113 @@ jun : -----
 
 ## 구현 상세
 
+자동차 경주 게임을 구현한 Java 애플리케이션 
+
+사용자로부터 자동차 이름과 시도 횟수를 입력받아, 각 라운드마다 랜덤 값에 따라 자동차를 전진시키고 최종 우승자를 출력한다.
+
+**주요 기능:**
+- 쉼표`,`로 구분된 여러 자동차 이름 입력 (최대 5자)
+- 사용자 지정 라운드 수만큼 경주 진행
+- 랜덤 값(0~9)이 4 이상일 때 자동차 전진
+- 매 라운드 종료 시 결과 출력
+- 최종 우승자 결정 (공동 우승 지원)
+
+**입력 검증:**
+- 자동차 이름: 빈 값, 단일 공백, 5자 초과 방지
+- 시도 횟수: 양의 정수만 허용
+
 ---
 
 ## 코드 아키텍처
 
 ### 전체 흐름
 ```
-
+Application (main)
+    ↓
+RacingController (전체 흐름 제어)
+    ↓
+InputView (입력) → RacingController (검증 및 파싱)
+    ↓
+RacingGame (게임 로직) → RacingCar (개별 차량)
+    ↓
+OutputView (출력)
 ```
 
 ### 시행 프로세스
 ```
+1. 사용자 입력
+   - InputView.readCarNames(): 자동차 이름 입력
+   - InputView.readRoundCount(): 시도 횟수 입력
 
+2. 데이터 검증 및 파싱
+   - RacingController.parseCarNames(): 쉼표 분리, trim, 유효성 검증
+   - InputView.validateInputRoundCountFormat(): 숫자 포맷 및 양수 검증
+
+3. 게임 초기화
+   - RacingGame 생성: 입력된 이름으로 RacingCar 인스턴스 생성
+
+4. 라운드 실행 (roundCount만큼 반복)
+   - RacingGame.run():
+     * 각 자동차에 대해 랜덤 값(0~9) 생성
+     * RacingCar.move(): 랜덤 값 >= 4이면 position++
+     * OutputView.displayOutput(): 현재 위치 출력 (이름 : ---)
+
+5. 결과 산출
+   - RacingGame.getWinner(): 최대 position을 가진 자동차 찾기
+   - OutputView.displayResult(): 우승자 출력 (쉼표로 구분)
+
+6. 종료
+   - Console.close()
 ```
 
 ### 주요 컴포넌트
 
+**Application**
+- 프로그램 진입점
+- RacingController 실행
+
+**RacingController**
+- MVC 패턴의 Controller 역할
+- 입력/출력 View와 게임 로직 연결
+- 입력 데이터 검증 및 파싱 책임
+- 예외 처리 및 리소스 정리 (Console.close)
+
+**InputView**
+- 사용자 입력 담당
+- 시도 횟수 포맷 검증 (숫자 형식, 양수)
+- 자동차 이름 검증은 Controller에 위임
+
+**OutputView**
+- 게임 진행 상황 및 결과 출력
+- 매 라운드 차량 위치 시각화 (`-` 사용)
+- 최종 우승자 출력
+
+**RacingGame**
+- 게임 로직 관리
+- RacingCar 인스턴스 리스트 보유
+- 한 라운드 실행 (모든 차량 이동 로직 시행)
+- 우승자 결정 로직 (최대 position 탐색, 공동 우승 처리)
+
+**RacingCar**
+- 개별 자동차 도메인 모델
+- name(이름), position(위치) 상태 관리
+- move() 메서드: 전진 조건 판단 (랜덤 값 >= 4)
+
 ---
 
-## 기술 스택
+## 사용 기술 스택
+
+- **Language:** Java
+- **External Libraries:**
+    - `camp.nextstep.edu.missionutils.Console`: 콘솔 입력 유틸리티
+    - `camp.nextstep.edu.missionutils.Randoms`: 랜덤 값 생성 유틸리티
+- **Design Pattern:** MVC (Model-View-Controller)
+    - Model: RacingCar, RacingGame
+    - View: InputView, OutputView
+    - Controller: RacingController
+- **Java Features:**
+    - Stream API (입력 파싱)
+    - Exception Handling (IllegalArgumentException)
+    - Collections (ArrayList, List)
 
 ---
