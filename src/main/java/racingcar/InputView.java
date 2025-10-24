@@ -18,7 +18,7 @@ public class InputView {
 
     private static int validateInputRoundCountFormat(String roundCount) {
         // 기본 입력 포맷 검증 로직 (숫자 포맷 일치 여부, 음이 아닌 정수)
-        if (roundCount.isEmpty()) throw new IllegalArgumentException("시행 횟수 - 빈 값 입력 불가");
+        if (roundCount.isEmpty()) throw new IllegalArgumentException(ErrorMessage.ROUND_COUNT_EMPTY.getMessage());
 
         try {
             int num = Integer.parseInt(roundCount);
@@ -26,12 +26,12 @@ public class InputView {
 
             return num;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("시행 횟수 - 올바른 숫자 형식 필요");
+            throw new IllegalArgumentException(ErrorMessage.ROUND_COUNT_INVALID_FORMAT.getMessage());
         }
     }
 
     private static void checkPositive(int roundCount) {
-        if (roundCount <= 0) throw new IllegalArgumentException("시행 횟수 - 양수 값만 입력 가능");
+        if (roundCount <= 0) throw new IllegalArgumentException(ErrorMessage.ROUND_COUNT_NOT_POSITIVE.getMessage());
     }
 }
 
