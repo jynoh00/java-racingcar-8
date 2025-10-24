@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.domain;
 
 public class RacingCar {
     private static final int FORWARD_THRESHOLD = 4;

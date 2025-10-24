@@ -1,6 +1,10 @@
-package racingcar;
+package racingcar.controller;
 
 import camp.nextstep.edu.missionutils.Console;
+import racingcar.exception.ErrorMessage;
+import racingcar.view.InputView;
+import racingcar.view.OutputView;
+import racingcar.domain.RacingGame;
 
 import java.util.Arrays;
 import java.util.List;

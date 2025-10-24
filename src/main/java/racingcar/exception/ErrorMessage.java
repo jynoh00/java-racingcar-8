@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.exception;
 
 public enum ErrorMessage {
     CAR_NAME_NULL_OR_EMPTY("자동차 이름은 빈 값일 수 없습니다."),
