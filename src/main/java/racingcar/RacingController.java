@@ -2,6 +2,7 @@ package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,16 +42,13 @@ public class RacingController {
     private static List<String> parseCarNames(String input) {
         validateInputCarNameEmptyOrBlank(input);
 
-        if (input.contains(SEPARATOR)) {
-            List<String> carNames = Arrays.stream(input.split(SEPARATOR))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
-            validateSplitNamesCheck(carNames);
+        List<String> carNames = Arrays.stream(input.split(SEPARATOR))
+                .map(String::trim)
+                .collect(Collectors.toList());
 
-            return carNames;
-        }
+        validateSplitNamesCheck(carNames);
 
-        return List.of(input);
+        return carNames;
     }
 
     // 기본 상태 입력 문자열 검증
