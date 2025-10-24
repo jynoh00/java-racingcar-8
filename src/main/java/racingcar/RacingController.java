@@ -55,18 +55,26 @@ public class RacingController {
 
     // 기본 상태 입력 문자열 검증
     private static void validateInputCarNameEmptyOrBlank(String carNames) {
-        if (carNames == null || carNames.isEmpty()) throw new IllegalArgumentException("자동차 이름 문자열 - 빈 값 불가");
-        if (carNames.isBlank()) throw new IllegalArgumentException("자동차 이름 문자열 - 단일 공백 문자 불가");
+        if (carNames == null || carNames.isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessage.CAR_NAMES_INPUT_NULL_OR_EMPTY.getMessage());
+        }
+        if (carNames.isBlank()) {
+            throw new IllegalArgumentException(ErrorMessage.CAR_NAMES_INPUT_BLANK.getMessage());
+        }
     }
 
     // 스플릿한 문자열 개별 검증
     private static void validateSplitNamesCheck(List<String> carNames) {
         for (String carName : carNames) {
-            if (carName == null || carName.isEmpty()) throw new IllegalArgumentException("자동차 이름 - 빈 값 불가");
-            if (carName.isBlank()) throw new IllegalArgumentException("자동차 이름 - 단일 공백 문자 불가");
-            if (carName.length() > NAME_LENGTH_THRESHOLD) throw new IllegalArgumentException("자동차 이름 - 길이 초과");
-//            if (carName.contains(",")) throw new IllegalArgumentException("자동차 이름 - 쉼표 불가");
-            // -> 쉼표 기준 스플릿 하였기에 없어도 된다 판단
+            if (carName == null || carName.isEmpty()) {
+                throw new IllegalArgumentException(ErrorMessage.CAR_NAME_NULL_OR_EMPTY.getMessage());
+            }
+            if (carName.isBlank()) {
+                throw new IllegalArgumentException(ErrorMessage.CAR_NAME_BLANK.getMessage());
+            }
+            if (carName.length() > NAME_LENGTH_THRESHOLD) {
+                throw new IllegalArgumentException(ErrorMessage.CAR_NAME_TOO_LONG.getMessage());
+            }
         }
     }
 
