@@ -43,6 +43,7 @@ public class RacingController {
 
         List<String> carNames = Arrays.stream(input.split(SEPARATOR))
                 .map(String::trim)
+                .distinct() // 중복 제거
                 .collect(Collectors.toList());
 
         validateSplitNamesCheck(carNames);
