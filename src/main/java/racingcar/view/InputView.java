@@ -19,7 +19,9 @@ public class InputView {
 
     private static int validateInputRoundCountFormat(String roundCount) {
         // 기본 입력 포맷 검증 로직 (숫자 포맷 일치 여부, 음이 아닌 정수)
-        if (roundCount.isEmpty()) throw new IllegalArgumentException(ErrorMessage.ROUND_COUNT_EMPTY.getMessage());
+        if (roundCount == null || roundCount.trim().isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessage.ROUND_COUNT_EMPTY.getMessage());
+        }
 
         try {
             int num = Integer.parseInt(roundCount);
