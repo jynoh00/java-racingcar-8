@@ -125,6 +125,74 @@ jun : -----
 ```
 ---
 
+## 입력값 예시
+
+### 자동차 이름 입력값
+
+```
+정상 실행
+
+"pobi,woni,jun" // 기본 입력
+-> [pobi, woni, jun]
+
+"pobi,woni,jun, woni" // 중복 입력
+-> [pobi, woni, jun]
+
+"  pobi  ,woni , jun" // 개별 자동차 이름 전후 공백 문자열 존재
+-> [pobi, woni, jun]
+
+"p obi, wo ni, ju  n" // 개별 자동차 이름 내 공백 문자열 존재
+-> [p obi, wo ni, ju  n]
+
+표준 예외 처리
+
+"" // 빈 문자열 입력
+-> IllegalArgumentException: [ERROR] 자동차 이름 입력은 빈 값일 수 없습니다.
+  
+" " // 공백 문자 입력
+-> IllegalArgumentException: [ERROR] 자동차 이름 입력은 공백만으로 구성될 수 없습니다.
+
+"po  bi, woni,jun " // 개별 자동차 이름 (내부 공백 포함) 길이 초과 입력
+-> IllegalArgumentException: [ERROR] 자동차 이름은 5글자를 초과할 수 없습니다.
+
+"pobi,,jun" // 개별 자동차 이름 빈값 입력
+"pobi,"
+"pobi,,"
+"pobi, ,asd"
+-> IllegalArgumentException: [ERROR] 자동차 이름은 빈 값일 수 없습니다.
+ 
+```
+
+### 시행 횟수 입력값
+
+```
+정상 실행
+
+"10"
+"101"
+"1999"
+
+표준 예외 처리
+
+"0" // 0 입력
+"-1" // 공백 문자 입력
+-> IllegalArgumentException: [ERROR] 시도 횟수는 양수여야 합니다.
+  
+"" // 빈값 입력
+-> IllegalArgumentException: [ERROR] 시도 횟수는 빈 값일 수 없습니다.
+
+" " // 올바르지 않은 형식들
+"asd"
+" 30"
+"5 "
+"*^&*"
+"99999999999" // int 범위를 벗어난 경우
+-> IllegalArgumentException: [ERROR] 시도 횟수는 올바른 숫자 형식이어야 합니다.
+ 
+```
+
+---
+
 ## 구현 상세
 
 자동차 경주 게임을 구현한 Java 애플리케이션 
