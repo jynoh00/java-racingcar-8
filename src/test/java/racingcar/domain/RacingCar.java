@@ -25,7 +25,7 @@ class RacingCarTest {
 
         car.move(MOVING_FORWARD);
 
-        assertThat(car.getPosition()).isEqualTo(INITIAL_POSITION+1);
+        assertThat(car.getPosition()).isEqualTo(INITIAL_POSITION + 1);
     }
 
     @Test
@@ -48,6 +48,6 @@ class RacingCarTest {
         car.move(MOVING_FORWARD);
         car.move(MOVING_FORWARD);
 
-        assertThat(car.getPosition()).isEqualTo(INITIAL_POSITION+4);
+        assertThat(car.getPosition()).isEqualTo(INITIAL_POSITION + 4);
     }
 }
