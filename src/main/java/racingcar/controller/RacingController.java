@@ -45,7 +45,7 @@ public class RacingController {
     private static List<String> parseCarNames(String input) {
         validateInputCarNameEmptyOrBlank(input);
 
-        List<String> carNames = Arrays.stream(input.split(SEPARATOR))
+        List<String> carNames = Arrays.stream(input.split(SEPARATOR, -1))
                 .map(String::trim)
                 .distinct() // 중복 제거
                 .collect(Collectors.toList());
@@ -68,11 +68,8 @@ public class RacingController {
     // 스플릿한 문자열 개별 검증
     private static void validateSplitNamesCheck(List<String> carNames) {
         for (String carName : carNames) {
-            if (carName == null || carName.isEmpty()) {
+            if (carName == null || carName.isEmpty()) { // 앞선 trim 과정으로 isBlank() 해당 x
                 throw new IllegalArgumentException(ErrorMessage.CAR_NAME_NULL_OR_EMPTY.getMessage());
-            }
-            if (carName.isBlank()) {
-                throw new IllegalArgumentException(ErrorMessage.CAR_NAME_BLANK.getMessage());
             }
             if (carName.length() > NAME_LENGTH_THRESHOLD) {
                 throw new IllegalArgumentException(ErrorMessage.CAR_NAME_TOO_LONG.getMessage());
